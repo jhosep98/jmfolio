@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  portfolios Portfolio[]
+}
+
+model Portfolio {
+  id        String   @id @default(cuid())
+  name      String   @default("My Portfolio")
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  positions    Position[]
+  transactions Transaction[]
+  goals        Goal[]
+}
+
+model Position {
+  id          String    @id @default(cuid())
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  ticker       String // SPY, BTC, USDT
+  name         String // S&P 500 ETF, Bitcoin, Tether
+  type         AssetType // STOCK, CRYPTO, CASH
+  quantity     Decimal   @db.Decimal(18, 8)
+  avgPrice     Decimal   @db.Decimal(18, 2)
+  currentPrice Decimal   @db.Decimal(18, 2) // Updated manually or via API
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  transactions Transaction[]
+
+  @@unique([portfolioId, ticker])
+}
+
+model Transaction {
+  id          String    @id @default(cuid())
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  positionId  String
+  position    Position  @relation(fields: [positionId], references: [id], onDelete: Cascade)
+
+  type     TransactionType // BUY, SELL
+  quantity Decimal         @db.Decimal(18, 8)
+  price    Decimal         @db.Decimal(18, 2)
+  total    Decimal         @db.Decimal(18, 2) // quantity * price
+  fees     Decimal?        @db.Decimal(18, 2)
+  notes    String?
+  date     DateTime
+
+  createdAt DateTime @default(now())
+
+  @@index([portfolioId])
+  @@index([positionId])
+}
+
+model Goal {
+  id          String    @id @default(cuid())
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  title        String
+  targetAmount Decimal   @db.Decimal(18, 2)
+  deadline     DateTime?
+  achieved     Boolean   @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum AssetType {
+  STOCK
+  CRYPTO
+  CASH
+  ETF
+}
+
+enum TransactionType {
+  BUY
+  SELL
+}
