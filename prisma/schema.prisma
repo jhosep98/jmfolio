@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client"
-  output   = "./generated/prisma"
+  output   = "../src/app/generated/prisma"
 }
 
 datasource db {
@@ -44,11 +44,11 @@ model Transaction {
   user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   positionId    String
   position      Position        @relation(fields: [positionId], references: [id], onDelete: Cascade)
-  type          TransactionType // BUY, SELL
+  type          TransactionType 
   quantity      Float
   pricePerUnit  Float
   fees          Float           @default(0)
-  total         Float           // Calculated: quantity * pricePerUnit + fees
+  total         Float           
   notes         String?
   date          DateTime        @default(now())
   createdAt     DateTime        @default(now())
