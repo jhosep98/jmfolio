@@ -1,9 +1,9 @@
 import { GalleryVerticalEnd } from 'lucide-react'
 import Link from 'next/link'
-import { LoginForm } from '@/components/auth/login-form'
+import { SignupForm } from '@/components/auth/signup-form'
 import { ROUTES } from '@/lib/constants'
 
-export default function SignInPage() {
+export default function SignUpPage() {
   return (
     <div className='bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10'>
       <div className='flex w-full max-w-sm flex-col gap-6'>
@@ -13,7 +13,7 @@ export default function SignInPage() {
           </div>
           JMFolio
         </Link>
-        <LoginForm />
+        <SignupForm />
       </div>
     </div>
   )
