@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+import AppProvider from '@/providers/app-provider'
 import type { Locale } from '@/types/types'
 
 const geistSans = Geist({
@@ -32,8 +33,10 @@ export default async function RootLayout({
   const { lang } = await params
 
   return (
-    <html lang={lang}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+    <html lang={lang} suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <AppProvider>{children}</AppProvider>
+      </body>
     </html>
   )
 }

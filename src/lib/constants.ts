@@ -6,3 +6,5 @@ export const ROUTES = {
   TERMS: '/terms',
   PRIVACY: '/privacy',
 }
+
+export const LOCALES = ['en-US', 'es-ES', 'pt-BR']

@@ -2,7 +2,7 @@
 
 import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
-import React from 'react'
+import * as React from 'react'
 import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { ROUTES } from '@/lib/constants'
@@ -15,7 +15,7 @@ const menuItems = [
   { name: 'About', href: '#link' },
 ]
 
-export const HeroHeader = () => {
+const HeroHeader: React.FC = () => {
   const [menuState, setMenuState] = React.useState(false)
   const [isScrolled, setIsScrolled] = React.useState(false)
 
@@ -23,7 +23,9 @@ export const HeroHeader = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
+
     window.addEventListener('scroll', handleScroll)
+
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -33,7 +35,7 @@ export const HeroHeader = () => {
         <div
           className={cn(
             'mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:px-12',
-            isScrolled && 'bg-background/50 max-w-4xl rounded-2xl border backdrop-blur-lg lg:px-5',
+            isScrolled && 'bg-background/50 rounded-2xl border backdrop-blur-lg lg:px-5',
           )}
         >
           <div className='relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4'>
@@ -84,26 +86,15 @@ export const HeroHeader = () => {
                 </ul>
               </div>
               <div className='flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit'>
-                <Button
-                  asChild
-                  variant='outline'
-                  size='sm'
-                  className={cn(isScrolled && 'lg:hidden')}
-                >
+                <Button asChild variant='outline' size='sm'>
                   <Link href={ROUTES.SIGNIN}>
                     <span>Login</span>
                   </Link>
                 </Button>
 
-                <Button asChild size='sm' className={cn(isScrolled && 'lg:hidden')}>
+                <Button asChild size='sm'>
                   <Link href={ROUTES.SIGNUP}>
                     <span>Sign Up</span>
-                  </Link>
-                </Button>
-
-                <Button asChild size='sm' className={cn(isScrolled ? 'lg:inline-flex' : 'hidden')}>
-                  <Link href='/'>
-                    <span>Get Started</span>
                   </Link>
                 </Button>
               </div>
@@ -114,3 +105,5 @@ export const HeroHeader = () => {
     </header>
   )
 }
+
+export default HeroHeader
