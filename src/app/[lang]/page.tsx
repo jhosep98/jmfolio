@@ -1,6 +1,7 @@
 // import prisma from '@/lib/prisma'
 // import type { User } from './generated/prisma/client'
 
+import Counter from '@/components/counter'
 import FooterSection from '@/components/footer'
 import HeroSection from '@/components/hero-section'
 import type { Locale } from '@/types/types'
@@ -16,6 +17,7 @@ export default async function Home({ params }: { params: Promise<{ lang: Locale 
       <HeroSection />
 
       <p>{dict.products.cart}</p>
+      <Counter />
 
       <FooterSection />
     </>
