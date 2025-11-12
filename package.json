@@ -1,16 +1,40 @@
 {
   "name": "jmfolio",
   "description": "JM Folio is a portfolio tracker application for managing investment positions across stocks, crypto, cash, and ETFs.",
-  "author": "@jhosep98",
   "version": "0.1.0",
   "private": true,
+  "author": "@jhosep98",
+  "license": "MIT",
+  "keywords": [
+    "portfolio",
+    "investment",
+    "tracker",
+    "stocks",
+    "crypto",
+    "etf",
+    "nextjs",
+    "prisma"
+  ],
+  "engines": {
+    "node": ">=20.0.0",
+    "bun": ">=1.0.0"
+  },
+  "packageManager": "bun@1.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "typecheck": "tsc --noEmit",
     "lint": "biome check --fix .",
     "format": "biome format --write .",
-    "check": "pnpm exec biome check --write"
+    "check": "biome check --write",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:studio": "prisma studio",
+    "db:seed": "tsx prisma/seed.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "0.6.2",
