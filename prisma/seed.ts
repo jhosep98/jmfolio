@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt'
 import { PrismaClient } from '@/app/generated/prisma/client'
 
 const prisma = new PrismaClient()
@@ -9,11 +10,14 @@ async function main() {
   await prisma.goal.deleteMany()
   await prisma.user.deleteMany()
 
+  const salt = bcrypt.genSaltSync(10)
+  const hashedPassword = await bcrypt.hash('password', salt)
+
   // Create users
   const user1 = await prisma.user.create({
     data: {
       email: 'john@example.com',
-      password: 'hashed_password_123', // In real app, use bcrypt
+      password: hashedPassword,
       name: 'John Doe',
     },
   })
@@ -21,7 +25,7 @@ async function main() {
   const user2 = await prisma.user.create({
     data: {
       email: 'sarah@example.com',
-      password: 'hashed_password_456',
+      password: hashedPassword,
       name: 'Sarah Smith',
     },
   })
