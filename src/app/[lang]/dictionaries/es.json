@@ -1,5 +1,34 @@
 {
-  "products": {
-    "cart": "Agregar al carrito"
+  "landing": {
+    "hero": {
+      "badge": "Rastrea Tus Inversiones",
+      "title": "Gestión Inteligente de Portafolio Simplificada",
+      "description": "Monitorea acciones, cripto, ETFs y efectivo en un solo lugar. Rastrea rendimiento, analiza transacciones y alcanza tus metas financieras.",
+      "cta": "Comenzar",
+      "demo": "Ver Demo"
+    },
+    "features": {
+      "title": "Todo lo Que Necesitas Rastrear",
+      "subtitle": "Funciones potentes para gestión completa de portafolio",
+      "multiAsset": {
+        "title": "Soporte Multi-Activo",
+        "description": "Rastrea acciones, criptomonedas, ETFs y posiciones en efectivo en un panel unificado."
+      },
+      "transactions": {
+        "title": "Historial de Transacciones",
+        "description": "Registra cada compra y venta con seguimiento detallado de comisiones, precios y cálculo automático de costo promedio."
+      },
+      "goals": {
+        "title": "Metas Financieras",
+        "description": "Establece objetivos de inversión con fechas límite y rastrea tu progreso para alcanzarlos."
+      },
+      "realtime": {
+        "title": "Análisis de Rendimiento",
+        "description": "Monitorea el valor del portafolio, ganancias y pérdidas con información completa de rendimiento."
+      }
+    }
+  },
+  "footer": {
+    "text": "Todos los derechos reservados"
   }
 }

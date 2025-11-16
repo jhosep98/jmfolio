@@ -1,5 +1,34 @@
 {
-  "products": {
-    "cart": "Add to Cart"
+  "landing": {
+    "hero": {
+      "badge": "Track Your Investments",
+      "title": "Smart Portfolio Management Made Simple",
+      "description": "Monitor stocks, crypto, ETFs, and cash in one place. Track performance, analyze transactions, and achieve your financial goals.",
+      "cta": "Get Started",
+      "demo": "View Demo"
+    },
+    "features": {
+      "title": "Everything You Need to Track",
+      "subtitle": "Powerful features for complete portfolio management",
+      "multiAsset": {
+        "title": "Multi-Asset Support",
+        "description": "Track stocks, cryptocurrencies, ETFs, and cash positions all in one unified dashboard."
+      },
+      "transactions": {
+        "title": "Transaction History",
+        "description": "Record every buy and sell with detailed tracking of fees, prices, and automatic average cost calculation."
+      },
+      "goals": {
+        "title": "Financial Goals",
+        "description": "Set investment targets with deadlines and track your progress toward achieving them."
+      },
+      "realtime": {
+        "title": "Performance Analytics",
+        "description": "Monitor portfolio value, gains, and losses with comprehensive performance insights."
+      }
+    }
+  },
+  "footer": {
+    "text": "All rights reserved"
   }
 }

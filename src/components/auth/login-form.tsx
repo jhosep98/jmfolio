@@ -6,45 +6,40 @@ import { Input } from '@/components/ui/input'
 import { ROUTES } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
-export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
-  return (
-    <div className={cn('flex flex-col gap-6', className)} {...props}>
-      <Card>
-        <CardHeader className='text-center'>
-          <CardTitle className='text-xl'>Welcome back</CardTitle>
-          <CardDescription>Login with your Email and Password</CardDescription>
-        </CardHeader>
+const LoginForm: React.FC<React.ComponentProps<'div'>> = ({ className, ...props }) => (
+  <div className={cn('flex flex-col gap-6', className)} {...props}>
+    <Card>
+      <CardHeader className='text-center'>
+        <CardTitle className='text-xl'>Welcome back</CardTitle>
+        <CardDescription>Login with your Email and Password</CardDescription>
+      </CardHeader>
 
-        <CardContent>
-          <form>
-            <FieldGroup>
-              <Field>
-                <FieldLabel htmlFor='email'>Email</FieldLabel>
-                <Input id='email' type='email' placeholder='m@example.com' required />
-              </Field>
+      <CardContent>
+        <form>
+          <FieldGroup>
+            <Field>
+              <FieldLabel htmlFor='email'>Email</FieldLabel>
+              <Input id='email' type='email' placeholder='m@example.com' required />
+            </Field>
 
-              <Field>
-                <div className='flex items-center'>
-                  <FieldLabel htmlFor='password'>Password</FieldLabel>
-                </div>
-                <Input id='password' type='password' required />
-              </Field>
+            <Field>
+              <div className='flex items-center'>
+                <FieldLabel htmlFor='password'>Password</FieldLabel>
+              </div>
+              <Input id='password' type='password' required />
+            </Field>
 
-              <Field>
-                <Button type='submit'>Login</Button>
-                <FieldDescription className='text-center'>
-                  Don&apos;t have an account? <Link href={ROUTES.SIGNUP}>Sign up</Link>
-                </FieldDescription>
-              </Field>
-            </FieldGroup>
-          </form>
-        </CardContent>
-      </Card>
+            <Field>
+              <Button type='submit'>Login</Button>
+              <FieldDescription className='text-center'>
+                Don&apos;t have an account? <Link href={ROUTES.SIGNUP}>Sign up</Link>
+              </FieldDescription>
+            </Field>
+          </FieldGroup>
+        </form>
+      </CardContent>
+    </Card>
+  </div>
+)
 
-      <FieldDescription className='px-6 text-center'>
-        By clicking continue, you agree to our <Link href={ROUTES.TERMS}>Terms of Service</Link> and{' '}
-        <Link href={ROUTES.PRIVACY}>Privacy Policy</Link>.
-      </FieldDescription>
-    </div>
-  )
-}
+export default LoginForm
