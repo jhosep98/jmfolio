@@ -6,43 +6,60 @@ import { Input } from '@/components/ui/input'
 import { ROUTES } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
-const SignupForm: React.FC<React.ComponentProps<'div'>> = ({ className, ...props }) => (
+type SignupFormProps = React.ComponentProps<'div'> & {
+  dict: {
+    title: string
+    description: string
+    nameLabel: string
+    namePlaceholder: string
+    emailLabel: string
+    emailPlaceholder: string
+    passwordLabel: string
+    confirmPasswordLabel: string
+    passwordHint: string
+    submitButton: string
+    hasAccount: string
+    signinLink: string
+  }
+}
+
+const SignupForm: React.FC<SignupFormProps> = ({ className, dict, ...props }) => (
   <div className={cn('flex flex-col gap-6', className)} {...props}>
     <Card>
       <CardHeader className='text-center'>
-        <CardTitle className='text-xl'>Create your account</CardTitle>
+        <CardTitle className='text-xl'>{dict.title}</CardTitle>
 
-        <CardDescription>Enter your email below to create your account</CardDescription>
+        <CardDescription>{dict.description}</CardDescription>
       </CardHeader>
 
       <CardContent>
         <form>
           <FieldGroup>
             <Field>
-              <FieldLabel htmlFor='name'>Full Name</FieldLabel>
-              <Input id='name' type='text' placeholder='John Doe' required />
+              <FieldLabel htmlFor='name'>{dict.nameLabel}</FieldLabel>
+              <Input id='name' type='text' placeholder={dict.namePlaceholder} required />
             </Field>
             <Field>
-              <FieldLabel htmlFor='email'>Email</FieldLabel>
-              <Input id='email' type='email' placeholder='m@example.com' required />
+              <FieldLabel htmlFor='email'>{dict.emailLabel}</FieldLabel>
+              <Input id='email' type='email' placeholder={dict.emailPlaceholder} required />
             </Field>
             <Field>
               <Field className='grid grid-cols-2 gap-4'>
                 <Field>
-                  <FieldLabel htmlFor='password'>Password</FieldLabel>
+                  <FieldLabel htmlFor='password'>{dict.passwordLabel}</FieldLabel>
                   <Input id='password' type='password' required />
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor='confirm-password'>Confirm Password</FieldLabel>
+                  <FieldLabel htmlFor='confirm-password'>{dict.confirmPasswordLabel}</FieldLabel>
                   <Input id='confirm-password' type='password' required />
                 </Field>
               </Field>
-              <FieldDescription>Must be at least 8 characters long.</FieldDescription>
+              <FieldDescription>{dict.passwordHint}</FieldDescription>
             </Field>
             <Field>
-              <Button type='submit'>Create Account</Button>
+              <Button type='submit'>{dict.submitButton}</Button>
               <FieldDescription className='text-center'>
-                Already have an account? <Link href={ROUTES.SIGNIN}>Sign in</Link>
+                {dict.hasAccount} <Link href={ROUTES.SIGNIN}>{dict.signinLink}</Link>
               </FieldDescription>
             </Field>
           </FieldGroup>

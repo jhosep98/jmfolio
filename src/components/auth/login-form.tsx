@@ -6,33 +6,46 @@ import { Input } from '@/components/ui/input'
 import { ROUTES } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
-const LoginForm: React.FC<React.ComponentProps<'div'>> = ({ className, ...props }) => (
+type LoginFormProps = React.ComponentProps<'div'> & {
+  dict: {
+    title: string
+    description: string
+    emailLabel: string
+    emailPlaceholder: string
+    passwordLabel: string
+    submitButton: string
+    noAccount: string
+    signupLink: string
+  }
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ className, dict, ...props }) => (
   <div className={cn('flex flex-col gap-6', className)} {...props}>
     <Card>
       <CardHeader className='text-center'>
-        <CardTitle className='text-xl'>Welcome back</CardTitle>
-        <CardDescription>Login with your Email and Password</CardDescription>
+        <CardTitle className='text-xl'>{dict.title}</CardTitle>
+        <CardDescription>{dict.description}</CardDescription>
       </CardHeader>
 
       <CardContent>
         <form>
           <FieldGroup>
             <Field>
-              <FieldLabel htmlFor='email'>Email</FieldLabel>
-              <Input id='email' type='email' placeholder='m@example.com' required />
+              <FieldLabel htmlFor='email'>{dict.emailLabel}</FieldLabel>
+              <Input id='email' type='email' placeholder={dict.emailPlaceholder} required />
             </Field>
 
             <Field>
               <div className='flex items-center'>
-                <FieldLabel htmlFor='password'>Password</FieldLabel>
+                <FieldLabel htmlFor='password'>{dict.passwordLabel}</FieldLabel>
               </div>
               <Input id='password' type='password' required />
             </Field>
 
             <Field>
-              <Button type='submit'>Login</Button>
+              <Button type='submit'>{dict.submitButton}</Button>
               <FieldDescription className='text-center'>
-                Don&apos;t have an account? <Link href={ROUTES.SIGNUP}>Sign up</Link>
+                {dict.noAccount} <Link href={ROUTES.SIGNUP}>{dict.signupLink}</Link>
               </FieldDescription>
             </Field>
           </FieldGroup>

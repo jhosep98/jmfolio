@@ -2,8 +2,13 @@ import { GalleryVerticalEnd } from 'lucide-react'
 import Link from 'next/link'
 import LoginForm from '@/components/auth/login-form'
 import { ROUTES } from '@/lib/constants'
+import type { Locale } from '@/types/types'
+import { getDictionary } from '../../dictionaries'
 
-export default function SignInPage() {
+export default async function SignInPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params
+  const dict = await getDictionary(lang)
+
   return (
     <div className='bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10'>
       <div className='flex w-full max-w-sm flex-col gap-6'>
@@ -13,7 +18,7 @@ export default function SignInPage() {
           </div>
           JMFolio
         </Link>
-        <LoginForm />
+        <LoginForm dict={dict.auth.signin} />
       </div>
     </div>
   )

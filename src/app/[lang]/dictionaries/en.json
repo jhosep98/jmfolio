@@ -30,5 +30,31 @@
   },
   "footer": {
     "text": "All rights reserved"
+  },
+  "auth": {
+    "signin": {
+      "title": "Welcome back",
+      "description": "Login with your Email and Password",
+      "emailLabel": "Email",
+      "emailPlaceholder": "m@example.com",
+      "passwordLabel": "Password",
+      "submitButton": "Login",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Sign up"
+    },
+    "signup": {
+      "title": "Create your account",
+      "description": "Enter your email below to create your account",
+      "nameLabel": "Full Name",
+      "namePlaceholder": "John Doe",
+      "emailLabel": "Email",
+      "emailPlaceholder": "m@example.com",
+      "passwordLabel": "Password",
+      "confirmPasswordLabel": "Confirm Password",
+      "passwordHint": "Must be at least 8 characters long.",
+      "submitButton": "Create Account",
+      "hasAccount": "Already have an account?",
+      "signinLink": "Sign in"
+    }
   }
 }

@@ -30,5 +30,31 @@
   },
   "footer": {
     "text": "Todos los derechos reservados"
+  },
+  "auth": {
+    "signin": {
+      "title": "Bienvenido de nuevo",
+      "description": "Inicia sesión con tu correo electrónico y contraseña",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "m@ejemplo.com",
+      "passwordLabel": "Contraseña",
+      "submitButton": "Iniciar sesión",
+      "noAccount": "¿No tienes una cuenta?",
+      "signupLink": "Regístrate"
+    },
+    "signup": {
+      "title": "Crea tu cuenta",
+      "description": "Ingresa tu correo electrónico para crear tu cuenta",
+      "nameLabel": "Nombre completo",
+      "namePlaceholder": "Juan Pérez",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "m@ejemplo.com",
+      "passwordLabel": "Contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "passwordHint": "Debe tener al menos 8 caracteres.",
+      "submitButton": "Crear cuenta",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "signinLink": "Inicia sesión"
+    }
   }
 }
