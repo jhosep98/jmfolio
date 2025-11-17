@@ -11,7 +11,8 @@ async function main() {
   await prisma.user.deleteMany()
 
   const salt = bcrypt.genSaltSync(10)
-  const hashedPassword = await bcrypt.hash('password', salt)
+
+  const hashedPassword = await bcrypt.hash(process.env.USER_PASSWORD as string, salt)
 
   // Create users
   const user1 = await prisma.user.create({
