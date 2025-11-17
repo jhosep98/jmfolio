@@ -26,17 +26,25 @@ type SignupFormProps = React.ComponentProps<'div'> & {
     submitButton: string
     hasAccount: string
     signinLink: string
+    validation: {
+      nameMinLength: string
+      emailInvalid: string
+      passwordMinLength: string
+      confirmPasswordMinLength: string
+      passwordMismatch: string
+    }
+    successMessage: string
   }
 }
 
-const formSchema = z.object({
-  name: z.string().min(3, 'Name must be at least 3 characters.'),
-  email: z.email('Invalid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters.'),
-  'confirm-password': z.string().min(8, 'Password must be at least 8 characters.'),
-})
-
 const SignupForm: React.FC<SignupFormProps> = ({ className, dict, ...props }) => {
+  const formSchema = z.object({
+    name: z.string().min(3, dict.validation.nameMinLength),
+    email: z.email(dict.validation.emailInvalid),
+    password: z.string().min(8, dict.validation.passwordMinLength),
+    'confirm-password': z.string().min(8, dict.validation.confirmPasswordMinLength),
+  })
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,13 +56,12 @@ const SignupForm: React.FC<SignupFormProps> = ({ className, dict, ...props }) =>
   })
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log('!!DATA: ', { data })
     if (data.password !== data['confirm-password']) {
-      toast.error('Passwords do not match!')
+      toast.error(dict.validation.passwordMismatch)
       return
     }
 
-    toast.success('Signup successful!')
+    toast.success(dict.successMessage)
 
     form.reset()
   }
@@ -154,6 +161,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ className, dict, ...props }) =>
                 <Button type='submit' disabled={form.formState.isSubmitting}>
                   {dict.submitButton}
                 </Button>
+
                 <FieldDescription className='text-center'>
                   {dict.hasAccount} <Link href={ROUTES.SIGNIN}>{dict.signinLink}</Link>
                 </FieldDescription>

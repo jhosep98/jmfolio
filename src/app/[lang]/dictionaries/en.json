@@ -40,7 +40,12 @@
       "passwordLabel": "Password",
       "submitButton": "Login",
       "noAccount": "Don't have an account?",
-      "signupLink": "Sign up"
+      "signupLink": "Sign up",
+      "validation": {
+        "emailInvalid": "Invalid email address",
+        "passwordMinLength": "Password must be at least 8 characters."
+      },
+      "successMessage": "Login successful!"
     },
     "signup": {
       "title": "Create your account",
@@ -54,7 +59,15 @@
       "passwordHint": "Must be at least 8 characters long.",
       "submitButton": "Create Account",
       "hasAccount": "Already have an account?",
-      "signinLink": "Sign in"
+      "signinLink": "Sign in",
+      "validation": {
+        "nameMinLength": "Name must be at least 3 characters.",
+        "emailInvalid": "Invalid email address",
+        "passwordMinLength": "Password must be at least 8 characters.",
+        "confirmPasswordMinLength": "Password must be at least 8 characters.",
+        "passwordMismatch": "Passwords do not match!"
+      },
+      "successMessage": "Signup successful!"
     }
   }
 }

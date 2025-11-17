@@ -40,7 +40,12 @@
       "passwordLabel": "Senha",
       "submitButton": "Entrar",
       "noAccount": "Não tem uma conta?",
-      "signupLink": "Cadastre-se"
+      "signupLink": "Cadastre-se",
+      "validation": {
+        "emailInvalid": "E-mail inválido",
+        "passwordMinLength": "A senha deve ter pelo menos 8 caracteres."
+      },
+      "successMessage": "Login realizado com sucesso!"
     },
     "signup": {
       "title": "Crie sua conta",
@@ -54,7 +59,15 @@
       "passwordHint": "Deve ter pelo menos 8 caracteres.",
       "submitButton": "Criar conta",
       "hasAccount": "Já tem uma conta?",
-      "signinLink": "Entrar"
+      "signinLink": "Entrar",
+      "validation": {
+        "nameMinLength": "O nome deve ter pelo menos 3 caracteres.",
+        "emailInvalid": "E-mail inválido",
+        "passwordMinLength": "A senha deve ter pelo menos 8 caracteres.",
+        "confirmPasswordMinLength": "A senha deve ter pelo menos 8 caracteres.",
+        "passwordMismatch": "As senhas não coincidem!"
+      },
+      "successMessage": "Cadastro realizado com sucesso!"
     }
   }
 }

@@ -22,15 +22,20 @@ type LoginFormProps = React.ComponentProps<'div'> & {
     submitButton: string
     noAccount: string
     signupLink: string
+    validation: {
+      emailInvalid: string
+      passwordMinLength: string
+    }
+    successMessage: string
   }
 }
 
-const formSchema = z.object({
-  email: z.email('Invalid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters.'),
-})
-
 const LoginForm: React.FC<LoginFormProps> = ({ className, dict, ...props }) => {
+  const formSchema = z.object({
+    email: z.email(dict.validation.emailInvalid),
+    password: z.string().min(8, dict.validation.passwordMinLength),
+  })
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -39,9 +44,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ className, dict, ...props }) => {
     },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log('!!DATA: ', { data })
-    toast.success('Login successful!')
+  function onSubmit(_data: z.infer<typeof formSchema>) {
+    toast.success(dict.successMessage)
 
     form.reset()
   }
