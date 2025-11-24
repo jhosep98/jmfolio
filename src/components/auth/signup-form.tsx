@@ -1,6 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import axios from 'axios'
 import Link from 'next/link'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -42,7 +43,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ className, dict, ...props }) =>
     name: z.string().min(3, dict.validation.nameMinLength),
     email: z.email(dict.validation.emailInvalid),
     password: z.string().min(8, dict.validation.passwordMinLength),
-    'confirm-password': z.string().min(8, dict.validation.confirmPasswordMinLength),
+    confirmPassword: z.string().min(8, dict.validation.confirmPasswordMinLength),
   })
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -51,19 +52,27 @@ const SignupForm: React.FC<SignupFormProps> = ({ className, dict, ...props }) =>
       name: '',
       email: '',
       password: '',
-      'confirm-password': '',
+      confirmPassword: '',
     },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    if (data.password !== data['confirm-password']) {
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    if (data.password !== data.confirmPassword) {
       toast.error(dict.validation.passwordMismatch)
       return
     }
 
-    toast.success(dict.successMessage)
+    try {
+      const res = await axios.post('/api/auth/signup', data)
 
-    form.reset()
+      console.log(res)
+
+      toast.success(dict.successMessage)
+      form.reset()
+    } catch (error) {
+      console.log(error)
+      toast.success('Something went worng!')
+    }
   }
 
   return (
@@ -139,15 +148,15 @@ const SignupForm: React.FC<SignupFormProps> = ({ className, dict, ...props }) =>
                   />
 
                   <Controller
-                    name='confirm-password'
+                    name='confirmPassword'
                     control={form.control}
                     render={({ field, fieldState }) => (
                       <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor='confirm-password'>
+                        <FieldLabel htmlFor='confirmPassword'>
                           {dict.confirmPasswordLabel}
                         </FieldLabel>
 
-                        <Input {...field} id='confirm-password' type='password' required />
+                        <Input {...field} id='confirmPassword' type='password' required />
 
                         {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                       </Field>
