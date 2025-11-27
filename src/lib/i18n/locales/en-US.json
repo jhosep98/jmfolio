@@ -1,0 +1,24 @@
+{
+  "errors": {
+    "validation": {
+      "failed": "Validation failed",
+      "required": "Field {field} is required",
+      "invalid_email": "Invalid email format",
+      "invalid_password": "Password must be at least 8 characters, include uppercase, lowercase, number and special character",
+      "passwords_not_match": "Passwords do not match",
+      "email_exists": "Email already registered"
+    },
+    "common": {
+      "invalid_json": "Invalid JSON payload",
+      "server_error": "Internal server error",
+      "not_found": "Resource not found"
+    },
+    "auth": {
+      "unauthorized": "Unauthorized access"
+    }
+  },
+  "success": {
+    "created": "Resource created successfully",
+    "user_registered": "User registered successfully"
+  }
+}

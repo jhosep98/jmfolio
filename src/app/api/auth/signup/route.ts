@@ -1,65 +1,44 @@
 import bcrypt from 'bcrypt'
+import type { NextRequest } from 'next/server'
+import { ApiResponse } from '@/lib/api/response'
+import { validateRequest } from '@/lib/api/validate-request'
+import { detectLocale } from '@/lib/i18n/detect-locale'
+import { Translator } from '@/lib/i18n/translator'
 import prisma from '@/lib/prisma'
-import { validateEmail, validatePassword } from '@/lib/utils'
+import { signupSchema } from '@/lib/validations/auth'
 
 const BCRYPT_ROUNDS = 12
 
-interface SignupRequest {
-  email: string
-  password: string
-  confirmPassword: string
-  name?: string
-}
+export async function POST(request: NextRequest) {
+  const locale = detectLocale(request)
+  const t = new Translator(locale)
+  const api = new ApiResponse(t)
 
-export async function POST(req: Request) {
   try {
-    let data: SignupRequest
+    const result = await validateRequest(request, signupSchema, api, t)
 
-    try {
-      data = await req.json()
-    } catch {
-      return Response.json({ error: 'Invalid JSON payload' }, { status: 400 })
-    }
+    if (!result.success) return result.error
 
-    const { email, password, confirmPassword, name } = data
+    const { email, password, name } = result.data
 
-    if (!email || !password || !confirmPassword) {
-      return Response.json(
-        { error: 'Email, password, and confirm-password are required' },
-        { status: 400 },
-      )
-    }
-
-    if (!validateEmail(email)) {
-      return Response.json({ error: 'Invalid email format' }, { status: 400 })
-    }
-
-    if (password !== confirmPassword) {
-      return Response.json({ error: 'Passwords do not match' }, { status: 400 })
-    }
-
-    const passwordValidation = validatePassword(password)
-
-    if (!passwordValidation.valid) {
-      return Response.json({ error: passwordValidation.error }, { status: 400 })
-    }
+    const normalizedEmail = email.toLowerCase().trim()
 
     const existingUser = await prisma.user.findUnique({
-      where: { email },
+      where: { email: normalizedEmail },
       select: { id: true },
     })
 
     if (existingUser) {
-      return Response.json({ error: 'Email already registered' }, { status: 409 })
+      return api.error('errors.validation.email_exists', { statusCode: 409 })
     }
 
     const hashedPassword = await bcrypt.hash(password, BCRYPT_ROUNDS)
 
     const newUser = await prisma.user.create({
       data: {
-        email,
+        email: normalizedEmail,
         password: hashedPassword,
-        ...(name && { name }),
+        name: name?.trim() || null,
       },
       select: {
         id: true,
@@ -69,16 +48,17 @@ export async function POST(req: Request) {
       },
     })
 
-    return Response.json(
-      {
-        message: 'User created successfully',
-        user: newUser,
-      },
-      { status: 201 },
-    )
-  } catch (error) {
-    console.error('Signup error:', error)
+    const formattedUser = {
+      ...newUser,
+      createdAt: t.formatDate(newUser.createdAt, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+    }
 
-    return Response.json({ error: 'Internal server error' }, { status: 500 })
+    return api.created(formattedUser, t.t('success.user_registered'))
+  } catch {
+    return api.serverError()
   }
 }

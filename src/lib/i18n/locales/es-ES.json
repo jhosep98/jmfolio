@@ -1,0 +1,24 @@
+{
+  "errors": {
+    "validation": {
+      "failed": "Validación fallida",
+      "required": "El campo {field} es requerido",
+      "invalid_email": "Formato de email inválido",
+      "invalid_password": "La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas, números y caracteres especiales",
+      "passwords_not_match": "Las contraseñas no coinciden",
+      "email_exists": "El email ya está registrado"
+    },
+    "common": {
+      "invalid_json": "Payload JSON inválido",
+      "server_error": "Error interno del servidor",
+      "not_found": "Recurso no encontrado"
+    },
+    "auth": {
+      "unauthorized": "Acceso no autorizado"
+    }
+  },
+  "success": {
+    "created": "Recurso creado exitosamente",
+    "user_registered": "Usuario registrado exitosamente"
+  }
+}
