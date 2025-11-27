@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
-import { ROUTES } from '@/lib/constants'
+import { API_ROUTES, ROUTES } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 type SignupFormProps = React.ComponentProps<'div'> & {
@@ -63,15 +63,14 @@ const SignupForm: React.FC<SignupFormProps> = ({ className, dict, ...props }) =>
     }
 
     try {
-      const res = await axios.post('/api/auth/signup', data)
-
-      console.log(res)
+      const res = await axios.post(API_ROUTES.signup, data)
+      console.log('!!RES: ', res)
 
       toast.success(dict.successMessage)
       form.reset()
     } catch (error) {
-      console.log(error)
-      toast.success('Something went worng!')
+      console.log('!!ERROR: ', JSON.stringify(error))
+      toast.error('Something went wrong!')
     }
   }
 
